@@ -9,13 +9,12 @@ RUN python -m venv venv
 RUN venv/bin/pip install -r requirements.txt
 
 COPY geiger geiger
-COPY app.py start.sh ./
+COPY start.sh start.sh
 RUN chmod +x start.sh
 
 RUN chown -R geiger:geiger ./
 USER geiger
 
 EXPOSE 8080
-ENTRYPOINT ["./start.sh"]
 RUN source venv/bin/activate
-CMD ["waitress-serve", "--port=8080", "geiger:geiger"]
+ENTRYPOINT [ "./start.sh"]
